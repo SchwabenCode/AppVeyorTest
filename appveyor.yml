@@ -1,0 +1,67 @@
+#-------------------------------------------------#
+#           GENERAL                               #
+#-------------------------------------------------#
+version: 0.0.1.{build}
+configuration: Release
+
+branches:
+ only:
+  - master
+  - develop
+  
+#-------------------------------------------------#
+#           ENVIRONMENT                           #
+#-------------------------------------------------#
+os: Visual Studio 2015
+environment:
+ # this patch key will be repaced by the before_build event and it's script
+ # only version-pattern here allowed.
+ versionPatchKey: '0.0.0-ci-replace'
+ dnvmVersion: '1.0.0-rc1-final'
+ artifactsPath: 'artifacts\build'
+ # string secured by individual appveyor account
+ nugetKey:
+    # SchwabenCodeTest
+    secure: 2uMFkotaBEOwDusxxurI3dmBWqkDDQHPRRdpp6ML4r/mPbIPyD3pxgOsinRQ1Kkf
+    
+#-------------------------------------------------#
+#           INIT                                  #
+#-------------------------------------------------#
+
+init:
+ - git config --global core.autocrlf true
+ 
+#-------------------------------------------------#
+#           INSTALL                               #
+#-------------------------------------------------#
+
+install:
+ - cmd: nuget sources add -Name api.nuget.org -Source https://api.nuget.org/v3/index.json
+
+#-------------------------------------------------#
+#           BUILD CONFIGURATION                   #
+#-------------------------------------------------#
+
+# patch project.json files and install DNVM
+before_build:
+ - ps: .\appveyor.prebuild.version.ps1
+ - ps: .\appveyor.prebuild.patch-projectjson.ps1 "src\NuGetProject" "src\NuGetProject.UnitTests" -version $env:APPVEYOR_BUILD_VERSION -placeholder $env:versionPatchKey
+ - ps: .\appveyor.install.dnvm.ps1
+
+
+# build main project with defined configuration
+build_script:
+ - ps: .\appveyor.build.ps1 "src\NuGetProject" "src\NuGetProject.UnitTests" -configuration $env:CONFIGURATION
+  
+#-------------------------------------------------#
+#           TEST CONFIGURATION                    #
+#-------------------------------------------------#
+
+# test with defined configuration
+test_script:
+ - ps: Write-Host "TESTING configuration $env:configuration"
+ - cmd: dnx -p src\NuGetProject.UnitTests test"
+ 
+#-------------------------------------------------#
+#           DEPLOY CONFIGURATION                  #
+#-------------------------------------------------#

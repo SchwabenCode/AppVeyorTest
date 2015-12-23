@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.0.0-ci-replace",
   "description": "NuGetProject.UnitTests Class Library",
   "authors": [ "BenjaminAbt", "SCHWABENCODE" ],
   "tags": [ "" ],
@@ -13,7 +13,7 @@
     "System.Runtime": "4.0.21-beta-23516",
     "System.Threading": "4.0.11-beta-23516",
 
-    "NuGetProject": "1.0.0-*",
+    "NuGetProject": "0.0.0-ci-replace",
     "xunit": "2.1.0",
     "xunit.runner.dnx": "2.1.0-rc1-build204",
     "FluentAssertions": "4.1.1"
