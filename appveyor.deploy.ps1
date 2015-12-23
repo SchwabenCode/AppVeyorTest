@@ -12,11 +12,6 @@ Try
 	
 	########
 	# handle special deploy stuff
-	elseif($env:APPVEYOR_REPO_COMMIT_MESSAGE -eq "nuget pre")
-	{
-		Write-Host "NUGET PRE CONFIGURATION DETECTED. DEPLOYING TO NUGET."
-		& .\appveyor.deploy.to-nuget.ps1
-	}
 	else
 	{
 		Write-Host "- no configuration found -"
