@@ -1,7 +1,7 @@
 #-------------------------------------------------#
 #           GENERAL                               #
 #-------------------------------------------------#
-version: 0.0.1
+version: 0.0.2
 configuration: Release
 
 branches:
@@ -18,7 +18,7 @@ environment:
  # only version-pattern here allowed.
  versionPatchKey: '0.0.0-ci-replace'
  dnvmVersion: '1.0.0-rc1-final'
- artifactsPath: 'artifacts\build',
+ artifactsPath: 'artifacts\build'
  releaseGitHubName: v$(appveyor_build_version)
  # string secured by individual appveyor account
  nugetKey:
