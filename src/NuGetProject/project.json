@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.0.0-ci-replace",
   "description": "NuGetProject Class Library",
   "authors": [ "BenjaminAbt", "SCHWABENCODE" ],
   "tags": [ "" ],
